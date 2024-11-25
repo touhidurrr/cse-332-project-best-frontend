@@ -3,6 +3,7 @@ import { AppSidebar } from "@/components/sidebar";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Suspense } from "react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,7 +35,7 @@ export default function RootLayout({
           <AppSidebar />
           <main className="min-h-full min-w-full flex flex-col">
             <SidebarTrigger />
-            {children}
+            <Suspense>{children} </Suspense>
           </main>
         </SidebarProvider>
       </body>

@@ -1,4 +1,5 @@
-import { Routine } from "@/api/types";
+import { Class, Routine } from "@/api/types";
+import uniq from "lodash.uniq";
 import Link from "next/link";
 import React from "react";
 
@@ -13,6 +14,21 @@ const days = [
 ];
 
 const StudentRoutine: React.FC<{ routine: Routine }> = ({ routine }) => {
+  let dayIdxs: number[] = [];
+  let periodIdxs: number[] = [];
+
+  for (let d = 0; d < 7; d++) {
+    for (let p = 0; p < routine.periods.length; p++) {
+      if (routine.classes[d][p] !== null) {
+        dayIdxs.push(d);
+        periodIdxs.push(p);
+      }
+    }
+  }
+
+  dayIdxs = uniq(dayIdxs).sort((a, b) => a - b);
+  periodIdxs = uniq(periodIdxs).sort((a, b) => a - b);
+
   return (
     <div className="shadow-lg rounded-lg overflow-hidden border border-gray-200 bg-white">
       {/* Routine Header */}
@@ -31,57 +47,56 @@ const StudentRoutine: React.FC<{ routine: Routine }> = ({ routine }) => {
               <th className="border-b border-gray-300 px-6 py-3 text-lg">
                 Day
               </th>
-              {routine.periods.map((name, idx) => (
+              {periodIdxs.map((pIdx) => (
                 <th
-                  key={idx}
+                  key={pIdx}
                   className="border-b border-gray-300 px-6 py-3 text-sm text-center"
                 >
-                  {name}
+                  {routine.periods[pIdx]}
                 </th>
               ))}
             </tr>
           </thead>
           <tbody className="text-xs text-gray-700">
-            {days.map((day, dayIndex) => (
-              <tr key={dayIndex} className="even:bg-gray-50 hover:bg-gray-100">
+            {dayIdxs.map((dIdx) => (
+              <tr key={dIdx} className="even:bg-gray-50 hover:bg-gray-100">
                 {/* Day Column */}
                 <td className="border-b border-gray-300 px-6 py-4 font-medium">
-                  {day}
+                  {days[dIdx]}
                 </td>
                 {/* Period Columns */}
-                {routine.classes[dayIndex]?.map((periodClass, periodIndex) => (
-                  <td
-                    key={periodIndex}
-                    className="border-b border-gray-300 px-6 py-4 text-center"
-                  >
-                    {periodClass ? (
-                      <div className="space-y-1">
-                        <div className="text-blue-600 font-semibold">
-                          <Link
-                            href={`/courses?code=${periodClass.courseCode}`}
-                          >
-                            {periodClass.courseCode}
-                          </Link>
+                {periodIdxs.map((pIdx) => {
+                  const pClass = routine.classes[dIdx][pIdx];
+                  return (
+                    <td
+                      key={pIdx}
+                      className="border-b border-gray-300 px-6 py-4 text-center"
+                    >
+                      {pClass ? (
+                        <div className="space-y-1">
+                          <div className="text-blue-600 font-semibold">
+                            <Link href={`/courses?code=${pClass.courseCode}`}>
+                              {pClass.courseCode}
+                            </Link>
+                          </div>
+                          <div className="text-gray-600">
+                            B{pClass.building}/{pClass.room}
+                          </div>
+                          <div className="text-gray-500">
+                            FC:{" "}
+                            <Link href={`/froutine?code=${pClass.facultyCode}`}>
+                              <span className="text-gray-800">
+                                {pClass.facultyCode}
+                              </span>
+                            </Link>
+                          </div>
                         </div>
-                        <div className="text-gray-600">
-                          B{periodClass.building}/{periodClass.room}
-                        </div>
-                        <div className="text-gray-500">
-                          FC:{" "}
-                          <Link
-                            href={`/froutine?code=${periodClass.facultyCode}`}
-                          >
-                            <span className="text-gray-800">
-                              {periodClass.facultyCode}
-                            </span>
-                          </Link>
-                        </div>
-                      </div>
-                    ) : (
-                      <span className="text-gray-400">--</span>
-                    )}
-                  </td>
-                ))}
+                      ) : (
+                        <span className="text-gray-400">--</span>
+                      )}
+                    </td>
+                  );
+                })}
               </tr>
             ))}
           </tbody>

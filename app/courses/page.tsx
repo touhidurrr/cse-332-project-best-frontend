@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -70,10 +71,15 @@ export default function Courses() {
               Faculties:
             </h3>
             <ul className="list-disc list-inside mt-2 space-y-2">
-              {courseInfo.courseFaculties.map((faculty, index) => (
-                <li key={index} className="text-gray-700">
-                  <span className="font-semibold">{faculty.name}</span> (Code:{" "}
-                  {faculty.code})
+              {courseInfo.courseFaculties.map(({ code, name }, idx) => (
+                <li key={idx} className="text-gray-700">
+                  <span className="font-semibold">{name} </span>
+                  <Link
+                    href={`/froutine?code=${code}`}
+                    className="text-gray-600"
+                  >
+                    ({code})
+                  </Link>
                 </li>
               ))}
             </ul>

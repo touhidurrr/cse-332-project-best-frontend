@@ -1,5 +1,6 @@
 import { FacultyClass, FacultyInfo } from "@/api/types";
 import uniq from "lodash.uniq";
+import Link from "next/link";
 import React from "react";
 
 const days = [
@@ -93,7 +94,9 @@ const FacultyRoutine: React.FC<{ facultyInfo: FacultyInfo }> = ({
                       {cls ? (
                         <div className="space-y-1">
                           <div className="text-blue-600 font-semibold">
-                            {cls.courseCode}
+                            <Link href={`/courses?code=${cls.courseCode}`}>
+                              {cls.courseCode}
+                            </Link>
                           </div>
                           <div className="text-gray-600">
                             B{cls.building}/{cls.room}

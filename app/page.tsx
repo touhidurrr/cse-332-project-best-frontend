@@ -1,3 +1,4 @@
+"use client";
 import {
   Select,
   SelectContent,
@@ -10,9 +11,7 @@ import {
 
 export default function Home() {
   return (
-    <div className="min-h-full min-w-full flex flex-col justify-center items-center">
-      <h1>BUBT Enhanced Schedule Tracker</h1>
-
+    <section className="min-h-full min-w-full flex flex-col justify-center items-center">
       <div className="flex">
         <Select>
           <SelectTrigger className="w-[180px]">
@@ -41,6 +40,6 @@ export default function Home() {
           </SelectContent>
         </Select>
       </div>
-    </div>
+    </section>
   );
 }

@@ -31,7 +31,9 @@ export default function Routines() {
 
   useEffect(() => {
     if (routines)
-      setPrograms([...new Set(routines.map((routine) => routine.program))]);
+      setPrograms(
+        [...new Set(routines.map((routine) => routine.program))].sort(),
+      );
   }, [routines]);
 
   useEffect(() => {

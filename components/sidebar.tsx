@@ -1,5 +1,3 @@
-import { Calendar, Home } from "lucide-react";
-
 import {
   Sidebar,
   SidebarContent,
@@ -10,6 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { BookText, Calendar, Home } from "lucide-react";
 
 // Menu items.
 const items = [
@@ -27,6 +26,11 @@ const items = [
     title: "Faculty Routine",
     url: "/froutine",
     icon: Calendar,
+  },
+  {
+    title: "Course Info",
+    url: "/courses",
+    icon: BookText,
   },
 ];
 

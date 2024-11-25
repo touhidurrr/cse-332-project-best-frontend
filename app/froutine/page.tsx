@@ -1,6 +1,7 @@
 "use client";
 import { getFacultyCodes, getFacultyInfo } from "@/api/api";
 import { FacultyInfo } from "@/api/types";
+import FacultyRoutine from "@/components/facultyRoutine";
 import {
   Select,
   SelectContent,
@@ -10,10 +11,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useEffect, useState } from "react";
-
-import FacultyRoutine from "@/components/facultyRoutine";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Routines() {
   const searchParams = useSearchParams();
@@ -22,7 +21,7 @@ export default function Routines() {
   const [facultyCodes, setFacultyCodes] = useState<string[] | null>(null);
 
   useEffect(() => {
-    setFacultyCode(searchParams.get("facultyCode"));
+    setFacultyCode(searchParams.get("code"));
     getFacultyCodes()
       .then((codes) => setFacultyCodes(codes.sort()))
       .catch(console.error);
@@ -34,10 +33,10 @@ export default function Routines() {
   }, [facultyCode]);
 
   return (
-    <section className="min-h-full min-w-full flex flex-col m-2">
+    <section className="flex flex-col m-2 gap-2 p-2">
       {facultyCodes && (
         <Select onValueChange={setFacultyCode} value={facultyCode || undefined}>
-          <SelectTrigger className="w-[180px] p-2">
+          <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Select Faculty Code" />
           </SelectTrigger>
           <SelectContent>

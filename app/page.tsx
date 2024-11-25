@@ -2,9 +2,7 @@
 
 export default function Home() {
   return (
-    <div
-      style={{ padding: "20px", backgroundColor: "#f9f9f9", height: "100vh" }}
-    >
+    <div className="h-full w-full p-4">
       <h1
         style={{
           fontSize: "2rem",

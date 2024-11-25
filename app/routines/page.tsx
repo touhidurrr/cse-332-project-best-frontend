@@ -85,7 +85,7 @@ export default function Routines() {
   }, [routines, program, intake, section]);
 
   return (
-    <section className="min-h-full min-w-full flex flex-col p-2">
+    <section className="min-h-full min-w-full flex flex-col gap-2 p-2">
       <div className="flex gap-2 p-1">
         {programs && (
           <Select onValueChange={setProgram}>
@@ -143,7 +143,7 @@ export default function Routines() {
       </div>
 
       {routinesToDisplay && (
-        <section className="space-y-12 px-4 md:px-2">
+        <section className="flex flex-col gap-4 p-2">
           {routinesToDisplay.map((routine, routineIndex) => (
             <StudentRoutine key={routineIndex} routine={routine} />
           ))}

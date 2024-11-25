@@ -31,3 +31,11 @@ export interface FacultyInfo {
   name: string;
   classes: FacultyClass[];
 }
+export interface CourseInfo {
+  code: string;
+  name: string;
+  courseFaculties: {
+    code: string;
+    name: string;
+  }[];
+}

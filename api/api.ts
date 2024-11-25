@@ -1,6 +1,6 @@
 "use client";
 import { Axios } from "axios";
-import { FacultyInfo, Routine } from "./types";
+import { CourseInfo, FacultyInfo, Routine } from "./types";
 
 let hostname = "localhost";
 if (typeof window !== "undefined") {
@@ -21,13 +21,19 @@ function ifStringThenObject<T>(data: string | T): T {
 
 export const getRoutines = async (): Promise<Routine[]> =>
   api.get("/routines").then((res) => ifStringThenObject(res.data));
-export const getFacultyCodes = async (): Promise<string[]> =>
-  api.get("/facultyCodes").then((res) => ifStringThenObject(res.data));
+
 export const getFacultyName = async (facultyCode: string): Promise<string> =>
   api.get(`/facultyName/${facultyCode}`).then((res) => res.data);
+export const getFacultyCodes = async (): Promise<string[]> =>
+  api.get("/facultyCodes").then((res) => ifStringThenObject(res.data));
 export const getFacultyInfo = async (
   facultyCode: string,
 ): Promise<FacultyInfo> =>
   api
     .get(`/faculty/${facultyCode}`)
     .then((res) => ifStringThenObject(res.data));
+
+export const getCourseCodes = async (): Promise<string[]> =>
+  api.get("/courseCodes").then((res) => ifStringThenObject(res.data));
+export const getCourseInfo = async (courseCode: string): Promise<CourseInfo> =>
+  api.get(`/courses/${courseCode}`).then((res) => ifStringThenObject(res.data));

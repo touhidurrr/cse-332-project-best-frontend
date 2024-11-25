@@ -34,7 +34,7 @@ const FacultyRoutine: React.FC<{ facultyInfo: FacultyInfo }> = ({
   });
 
   return (
-    <div className="m-2 p-2 shadow-lg rounded-lg overflow-hidden border border-gray-200 bg-white">
+    <div className="shadow-lg rounded-lg overflow-hidden border border-gray-200 bg-white">
       {/* Routine Header */}
       <div className="bg-blue-600 text-white p-6">
         <h2 className="text-2xl font-bold">

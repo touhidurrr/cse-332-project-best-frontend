@@ -38,28 +38,32 @@ export default function Routines() {
     setIntakes(null);
     setSections(null);
     if (routines)
-      setIntakes([
-        ...new Set(
-          routines
-            .filter((routine) => routine.program === program)
-            .map((routine) => routine.intake),
-        ),
-      ]);
+      setIntakes(
+        [
+          ...new Set(
+            routines
+              .filter((routine) => routine.program === program)
+              .map((routine) => routine.intake),
+          ),
+        ].sort((a, b) => a - b),
+      );
   }, [program]);
 
   useEffect(() => {
     setSections(null);
     if (routines)
-      setSections([
-        ...new Set(
-          routines
-            .filter(
-              (routine) =>
-                routine.program === program && routine.intake === intake,
-            )
-            .map((routine) => routine.section),
-        ),
-      ]);
+      setSections(
+        [
+          ...new Set(
+            routines
+              .filter(
+                (routine) =>
+                  routine.program === program && routine.intake === intake,
+              )
+              .map((routine) => routine.section),
+          ),
+        ].sort(),
+      );
   }, [intake]);
 
   useEffect(() => {

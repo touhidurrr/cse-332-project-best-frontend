@@ -8,7 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { BookText, Calendar, Home } from "lucide-react";
+import { BookText, Calendar, Home, LucideRefreshCcw } from "lucide-react";
 
 // Menu items.
 const items = [
@@ -31,6 +31,11 @@ const items = [
     title: "Course Info",
     url: "/courses",
     icon: BookText,
+  },
+  {
+    title: "Retake Section Finder",
+    url: "/retake",
+    icon: LucideRefreshCcw,
   },
 ];
 

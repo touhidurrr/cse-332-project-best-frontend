@@ -33,7 +33,7 @@ export default function RootLayout({
       >
         <SidebarProvider>
           <AppSidebar />
-          <main className="max-w-full flex flex-col">
+          <main className="max-w-full max-h-full flex flex-col">
             <SidebarTrigger />
             <Suspense>{children} </Suspense>
           </main>

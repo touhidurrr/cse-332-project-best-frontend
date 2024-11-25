@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import uniq from "lodash.uniq";
 import { useEffect, useState } from "react";
 
 export default function Routines() {
@@ -30,42 +31,36 @@ export default function Routines() {
   }, []);
 
   useEffect(() => {
-    if (routines)
-      setPrograms(
-        [...new Set(routines.map((routine) => routine.program))].sort(),
-      );
+    if (!routines) return;
+    setPrograms(uniq(routines.map((routine) => routine.program)).sort());
   }, [routines]);
 
   useEffect(() => {
     setIntakes(null);
     setSections(null);
-    if (routines)
-      setIntakes(
-        [
-          ...new Set(
-            routines
-              .filter((routine) => routine.program === program)
-              .map((routine) => routine.intake),
-          ),
-        ].sort((a, b) => a - b),
-      );
+    if (!routines) return;
+    setIntakes(
+      uniq(
+        routines
+          .filter((routine) => routine.program === program)
+          .map((routine) => routine.intake),
+      ).sort((a, b) => a - b),
+    );
   }, [program]);
 
   useEffect(() => {
     setSections(null);
-    if (routines)
-      setSections(
-        [
-          ...new Set(
-            routines
-              .filter(
-                (routine) =>
-                  routine.program === program && routine.intake === intake,
-              )
-              .map((routine) => routine.section),
-          ),
-        ].sort(),
-      );
+    if (!routines) return;
+    setSections(
+      uniq(
+        routines
+          .filter(
+            (routine) =>
+              routine.program === program && routine.intake === intake,
+          )
+          .map((routine) => routine.section),
+      ).sort(),
+    );
   }, [intake]);
 
   useEffect(() => {

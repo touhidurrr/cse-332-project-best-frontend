@@ -1,4 +1,5 @@
 import { FacultyClass, FacultyInfo } from "@/api/types";
+import uniq from "lodash.uniq";
 import React from "react";
 
 const days = [
@@ -31,15 +32,18 @@ function periodToDate(period: string): Date {
 const FacultyRoutine: React.FC<{ facultyInfo: FacultyInfo }> = ({
   facultyInfo,
 }) => {
-  const periods: string[] = [
-    ...new Set(facultyInfo.classes.map((cls) => cls.period)),
-  ].sort((a, b) => periodToDate(a).getTime() - periodToDate(b).getTime());
+  const dayIdxs: number[] = [];
+
+  const periods: string[] = uniq(
+    facultyInfo.classes.map((cls) => cls.period),
+  ).sort((a, b) => periodToDate(a).getTime() - periodToDate(b).getTime());
 
   const classes: (FacultyClass | null)[][] = new Array(7)
     .fill(null)
     .map(() => new Array(periods.length).fill(null));
 
   facultyInfo.classes.forEach((cls) => {
+    dayIdxs.push(cls.dayIdx);
     const periodIdx = periods.indexOf(cls.period);
     classes[cls.dayIdx][periodIdx] = cls;
   });
@@ -58,8 +62,8 @@ const FacultyRoutine: React.FC<{ facultyInfo: FacultyInfo }> = ({
         <table className="table-auto w-full text-left border-collapse">
           <thead className="bg-gray-100 text-gray-800">
             <tr>
-              <th className="border-b border-gray-300 px-6 py-3 text-lg">
-                Day
+              <th className="border-b border-gray-300 px-6 py-3 text-sm">
+                Day / Time
               </th>
               {periods.map((name, idx) => (
                 <th
@@ -72,38 +76,40 @@ const FacultyRoutine: React.FC<{ facultyInfo: FacultyInfo }> = ({
             </tr>
           </thead>
           <tbody className="text-xs text-gray-700">
-            {days.map((day, dayIdx) => (
-              <tr key={dayIdx} className="even:bg-gray-50 hover:bg-gray-100">
-                {/* Day Column */}
-                <td className="border-b border-gray-300 px-6 py-4 font-medium">
-                  {day}
-                </td>
-                {/* Period Columns */}
-                {classes[dayIdx].map((cls, clsIdx) => (
-                  <td
-                    key={clsIdx}
-                    className="border-b border-gray-300 px-6 py-4 text-center"
-                  >
-                    {cls ? (
-                      <div className="space-y-1">
-                        <div className="text-blue-600 font-semibold">
-                          {cls.courseCode}
-                        </div>
-                        <div className="text-gray-600">
-                          B{cls.building}/{cls.room}
-                        </div>
-                        <div className="text-gray-500">{cls.program}</div>
-                        <div className="text-gray-500">
-                          {cls.intake}/{cls.section}
-                        </div>
-                      </div>
-                    ) : (
-                      <span className="text-gray-400">--</span>
-                    )}
+            {uniq(dayIdxs)
+              .sort((a, b) => a - b)
+              .map((dayIdx) => (
+                <tr key={dayIdx} className="even:bg-gray-50 hover:bg-gray-100">
+                  {/* Day Column */}
+                  <td className="border-b border-gray-300 px-6 py-4 font-medium">
+                    {days[dayIdx]}
                   </td>
-                ))}
-              </tr>
-            ))}
+                  {/* Period Columns */}
+                  {classes[dayIdx].map((cls, clsIdx) => (
+                    <td
+                      key={clsIdx}
+                      className="border-b border-gray-300 px-6 py-4 text-center"
+                    >
+                      {cls ? (
+                        <div className="space-y-1">
+                          <div className="text-blue-600 font-semibold">
+                            {cls.courseCode}
+                          </div>
+                          <div className="text-gray-600">
+                            B{cls.building}/{cls.room}
+                          </div>
+                          <div className="text-gray-500">{cls.program}</div>
+                          <div className="text-gray-500">
+                            {cls.intake}/{cls.section}
+                          </div>
+                        </div>
+                      ) : (
+                        <span className="text-gray-400">--</span>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

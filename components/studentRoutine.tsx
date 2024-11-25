@@ -12,17 +12,6 @@ const days = [
   "Friday",
 ];
 
-const periods = [
-  "08:00 AM to 09:15 AM",
-  "09:15 AM to 10:30 AM",
-  "10:30 AM to 11:45 AM",
-  "11:45 AM to 01:00 PM",
-  "01:30 PM to 02:45 PM",
-  "02:45 PM to 04:00 PM",
-  "04:00 PM to 05:15 PM",
-  "05:15 PM to 06:30 PM",
-];
-
 const StudentRoutine: React.FC<{ routine: Routine }> = ({ routine }) => {
   return (
     <div className="shadow-lg rounded-lg overflow-hidden border border-gray-200 bg-white">
@@ -42,7 +31,7 @@ const StudentRoutine: React.FC<{ routine: Routine }> = ({ routine }) => {
               <th className="border-b border-gray-300 px-6 py-3 text-lg">
                 Day
               </th>
-              {periods.map((name, idx) => (
+              {routine.periods.map((name, idx) => (
                 <th
                   key={idx}
                   className="border-b border-gray-300 px-6 py-3 text-sm text-center"

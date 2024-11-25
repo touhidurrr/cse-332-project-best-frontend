@@ -10,6 +10,7 @@ export interface Routine {
   intake: number;
   section: string;
   semester: string;
+  periods: string[];
   classes: (Class | null)[][];
 }
 

@@ -26,7 +26,10 @@ const FacultyRoutine: React.FC<{ facultyInfo: FacultyInfo }> = ({
   facultyInfo,
 }) => {
   const classes: (FacultyClass | null)[][] = Array.from({ length: 7 }, () =>
-    Array.from({ length: 8 }, () => null),
+    Array.from(
+      { length: Math.max(...facultyInfo.classes.map((fc) => fc.period)) + 1 },
+      () => null,
+    ),
   );
 
   facultyInfo.classes.forEach((facultyClass) => {

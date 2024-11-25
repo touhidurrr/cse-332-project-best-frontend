@@ -35,13 +35,13 @@ const FacultyRoutine: React.FC<{ facultyInfo: FacultyInfo }> = ({
     ...new Set(facultyInfo.classes.map((cls) => cls.period)),
   ].sort((a, b) => periodToDate(a).getTime() - periodToDate(b).getTime());
 
-  const classes: (FacultyClass | null)[][] = Array.from({ length: 7 }, () =>
-    Array.from({ length: periods.length }, () => null),
-  );
+  const classes: (FacultyClass | null)[][] = new Array(7)
+    .fill(null)
+    .map(() => new Array(periods.length).fill(null));
 
-  facultyInfo.classes.forEach((facultyClass) => {
-    const periodIdx = periods.indexOf(facultyClass.period);
-    classes[facultyClass.dayIdx][periodIdx] = facultyClass;
+  facultyInfo.classes.forEach((cls) => {
+    const periodIdx = periods.indexOf(cls.period);
+    classes[cls.dayIdx][periodIdx] = cls;
   });
 
   return (

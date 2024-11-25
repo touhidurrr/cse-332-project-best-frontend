@@ -1,4 +1,4 @@
-import { Class, Routine } from "@/api/types";
+import { Routine } from "@/api/types";
 import uniq from "lodash.uniq";
 import Link from "next/link";
 import React from "react";

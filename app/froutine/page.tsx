@@ -28,7 +28,7 @@ export default function Routines() {
   }, []);
 
   useEffect(() => {
-    facultyCode &&
+    if (facultyCode)
       getFacultyInfo(facultyCode).then(setFacultyInfo).catch(console.error);
   }, [facultyCode]);
 

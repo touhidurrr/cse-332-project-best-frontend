@@ -30,14 +30,14 @@ export default function Routines() {
   }, []);
 
   useEffect(() => {
-    routines &&
+    if (routines)
       setPrograms([...new Set(routines.map((routine) => routine.program))]);
   }, [routines]);
 
   useEffect(() => {
     setIntakes(null);
     setSections(null);
-    routines &&
+    if (routines)
       setIntakes([
         ...new Set(
           routines
@@ -49,7 +49,7 @@ export default function Routines() {
 
   useEffect(() => {
     setSections(null);
-    routines &&
+    if (routines)
       setSections([
         ...new Set(
           routines

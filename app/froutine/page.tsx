@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 import FacultyRoutine from "@/components/facultyRoutine";
 import { useSearchParams } from "next/navigation";
@@ -33,26 +33,28 @@ export default function Routines() {
   }, [facultyCode]);
 
   return (
-    <section className="min-h-full min-w-full flex flex-col m-2">
-      {facultyCodes && (
-        <Select onValueChange={setFacultyCode}>
-          <SelectTrigger className="w-[180px] p-2">
-            <SelectValue placeholder="Select Faculty Code" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Faculty Code</SelectLabel>
-              {facultyCodes.map((code, idx) => (
-                <SelectItem key={idx} value={code}>
-                  {code}
-                </SelectItem>
-              ))}
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      )}
+    <Suspense>
+      <section className="min-h-full min-w-full flex flex-col m-2">
+        {facultyCodes && (
+          <Select onValueChange={setFacultyCode}>
+            <SelectTrigger className="w-[180px] p-2">
+              <SelectValue placeholder="Select Faculty Code" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectLabel>Faculty Code</SelectLabel>
+                {facultyCodes.map((code, idx) => (
+                  <SelectItem key={idx} value={code}>
+                    {code}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        )}
 
-      {facultyInfo && <FacultyRoutine facultyInfo={facultyInfo} />}
-    </section>
+        {facultyInfo && <FacultyRoutine facultyInfo={facultyInfo} />}
+      </section>
+    </Suspense>
   );
 }

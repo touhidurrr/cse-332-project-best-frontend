@@ -1,45 +1,22 @@
 "use client";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 export default function Home() {
   return (
-    <section className="min-h-full min-w-full flex flex-col justify-center items-center">
-      <div className="flex">
-        <Select>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Select Building" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Department</SelectLabel>
-              <SelectItem value="b2">B2</SelectItem>
-              <SelectItem value="b3">B3</SelectItem>
-              <SelectItem value="b4">B4</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-
-        <Select>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Select Room" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectLabel>Intake</SelectLabel>
-              <SelectItem value="room-313">Room 313</SelectItem>
-              <SelectItem value="room-314">Room 314</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-      </div>
-    </section>
+    <div
+      style={{ padding: "20px", backgroundColor: "#f9f9f9", height: "100vh" }}
+    >
+      <h1
+        style={{
+          fontSize: "2rem",
+          fontWeight: "bold",
+          color: "#2c3e50",
+          textAlign: "center",
+          marginTop: "20px",
+          textShadow: "1px 1px 5px rgba(0,0,0,0.2)",
+        }}
+      >
+        BEST: BUBT Enhanced Schedule Tracker
+      </h1>
+    </div>
   );
 }

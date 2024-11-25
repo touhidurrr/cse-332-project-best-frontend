@@ -1,4 +1,5 @@
 import { Routine } from "@/api/types";
+import Link from "next/link";
 import React from "react";
 
 const days = [
@@ -73,7 +74,14 @@ const StudentRoutine: React.FC<{ routine: Routine }> = ({ routine }) => {
                           B{periodClass.building}/{periodClass.room}
                         </div>
                         <div className="text-gray-500">
-                          FC: {periodClass.facultyCode}
+                          FC:{" "}
+                          <Link
+                            href={`/froutine?facultyCode=${periodClass.facultyCode}`}
+                          >
+                            <span className="text-gray-800">
+                              {periodClass.facultyCode}
+                            </span>
+                          </Link>
                         </div>
                       </div>
                     ) : (

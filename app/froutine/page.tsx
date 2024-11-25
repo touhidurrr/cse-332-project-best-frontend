@@ -29,14 +29,14 @@ export default function Routines() {
   }, []);
 
   useEffect(() => {
-    if (facultyCode)
-      getFacultyInfo(facultyCode).then(setFacultyInfo).catch(console.error);
+    if (!facultyCode) return;
+    getFacultyInfo(facultyCode).then(setFacultyInfo).catch(console.error);
   }, [facultyCode]);
 
   return (
     <section className="min-h-full min-w-full flex flex-col m-2">
       {facultyCodes && (
-        <Select onValueChange={setFacultyCode}>
+        <Select onValueChange={setFacultyCode} value={facultyCode || undefined}>
           <SelectTrigger className="w-[180px] p-2">
             <SelectValue placeholder="Select Faculty Code" />
           </SelectTrigger>

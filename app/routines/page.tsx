@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Routines() {
   const [routines, setRoutines] = useState<Routine[] | null>(null);

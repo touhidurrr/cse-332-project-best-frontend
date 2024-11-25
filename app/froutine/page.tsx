@@ -1,7 +1,6 @@
 "use client";
-import { getFacultyCodes, getFacultyInfo, getRoutines } from "@/api/api";
-import { FacultyInfo, Routine } from "@/api/types";
-import StudentRoutine from "@/components/studentRoutine";
+import { getFacultyCodes, getFacultyInfo } from "@/api/api";
+import { FacultyInfo } from "@/api/types";
 import {
   Select,
   SelectContent,
@@ -11,10 +10,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import { useSearchParams } from "next/navigation";
 import FacultyRoutine from "@/components/facultyRoutine";
+import { useSearchParams } from "next/navigation";
 
 export default function Routines() {
   const searchParams = useSearchParams();

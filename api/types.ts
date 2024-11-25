@@ -19,8 +19,9 @@ export interface FacultyClass {
   building: string;
   room: string;
 
-  day: number;
-  period: number;
+  dayIdx: number;
+  periodIdx: number;
+  period: string;
 
   program: string;
   intake: number;

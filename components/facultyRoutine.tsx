@@ -11,29 +11,37 @@ const days = [
   "Friday",
 ];
 
-const periods = [
-  "08:00 AM to 09:15 AM",
-  "09:15 AM to 10:30 AM",
-  "10:30 AM to 11:45 AM",
-  "11:45 AM to 01:00 PM",
-  "01:30 PM to 02:45 PM",
-  "02:45 PM to 04:00 PM",
-  "04:00 PM to 05:15 PM",
-  "05:15 PM to 06:30 PM",
-];
+function periodToDate(period: string): Date {
+  const date = new Date();
+
+  const firstTime = period.split(" to ")[0];
+  const [hourMinute, meridian] = firstTime.split(" ");
+  let [hours, minutes] = hourMinute.split(":").map(Number);
+
+  if (meridian === "PM" && hours !== 12) {
+    hours += 12;
+  } else if (meridian === "AM" && hours === 12) {
+    hours = 0;
+  }
+
+  date.setHours(hours, minutes, 0, 0);
+  return date;
+}
 
 const FacultyRoutine: React.FC<{ facultyInfo: FacultyInfo }> = ({
   facultyInfo,
 }) => {
+  const periods: string[] = [
+    ...new Set(facultyInfo.classes.map((cls) => cls.period)),
+  ].sort((a, b) => periodToDate(a).getTime() - periodToDate(b).getTime());
+
   const classes: (FacultyClass | null)[][] = Array.from({ length: 7 }, () =>
-    Array.from(
-      { length: Math.max(...facultyInfo.classes.map((fc) => fc.period)) + 1 },
-      () => null,
-    ),
+    Array.from({ length: periods.length }, () => null),
   );
 
   facultyInfo.classes.forEach((facultyClass) => {
-    classes[facultyClass.day][facultyClass.period] = facultyClass;
+    const periodIdx = periods.indexOf(facultyClass.period);
+    classes[facultyClass.dayIdx][periodIdx] = facultyClass;
   });
 
   return (

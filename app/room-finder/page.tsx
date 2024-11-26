@@ -99,9 +99,9 @@ export default function RoomFinder() {
             newBuildingRoomRoutinesMap[building][room] = Array(7)
               .fill(null)
               .map(() => Array(8).fill(null));
-          },
+          }
         );
-      },
+      }
     );
 
     if (rClasses)
@@ -132,7 +132,7 @@ export default function RoomFinder() {
                 variant={"outline"}
                 className={cn(
                   "w-[300px] justify-start text-left font-normal",
-                  !date && "text-muted-foreground",
+                  !date && "text-muted-foreground"
                 )}
               >
                 <CalendarIcon />
@@ -225,13 +225,19 @@ export default function RoomFinder() {
                     {getDays().map((currentDate, dateIdx) => {
                       const dIdx = (currentDate.getDay() + 6) % 7;
                       return routine[dIdx].map((slot, pIdx) => {
-                        const isBooked = bookedClasses.some(
-                          (b) =>
-                            b.building === building &&
-                            b.room === room &&
-                            b.day.getTime() === currentDate.getTime() &&
-                            b.pIdx === pIdx,
-                        );
+                        const isBooked = bookedClasses.some((b) => {
+                          try {
+                            return (
+                              b.building === building &&
+                              b.room === room &&
+                              b.day.getTime() === currentDate.getTime() &&
+                              b.pIdx === pIdx
+                            );
+                          } catch (e) {
+                            console.error(slot, b, e);
+                            return false;
+                          }
+                        });
 
                         return (
                           <tr key={`${dateIdx}-${dIdx}-${pIdx}`}>
@@ -286,7 +292,7 @@ export default function RoomFinder() {
                   </tbody>
                 </table>
               </div>
-            )),
+            ))
           )}
       </div>
     </section>

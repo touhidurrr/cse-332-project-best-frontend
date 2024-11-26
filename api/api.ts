@@ -5,7 +5,7 @@ import {
   CourseInfo,
   FacultyInfo,
   Routine,
-  RoutineClass
+  RoutineClass,
 } from "./types";
 
 let hostname = "localhost";

@@ -56,6 +56,16 @@ export default function RoomFinder() {
     to: addDays(today, 7),
   });
 
+  function getDays() {
+    const dates: Date[] = [];
+    let curDate = date.from!;
+    while (curDate <= date.to!) {
+      dates.push(curDate);
+      curDate = addDays(curDate, 1);
+    }
+    return dates;
+  }
+
   useEffect(() => {
     getBuildingRoomsMap().then(setBuildingRoomsMap).catch(console.error);
 
@@ -184,7 +194,7 @@ export default function RoomFinder() {
 
       {/* Show Unoccupied Classes Here */}
       <div className="flex flex-col gap-4">
-        {buildingRoomRoutinesMap && date.from && date.to ? (
+        {buildingRoomRoutinesMap &&
           Object.entries(buildingRoomRoutinesMap).map(([building, rooms]) =>
             Object.entries(rooms).map(([room, routine]) => (
               <div
@@ -204,11 +214,10 @@ export default function RoomFinder() {
                     </tr>
                   </thead>
                   <tbody>
-                    {routine.map((dayRoutine, dIdx) =>
-                      dayRoutine.map((slot, pIdx) => {
-                        const currentDate = addDays(date.from!, dIdx);
-                        if (currentDate > date.to!) return null;
-
+                    {getDays().map((currentDate, dateIdx) => {
+                      const dIdx = (currentDate.getDay() + 6) % 7;
+                      return routine[dIdx].map((slot, pIdx) => {
+                        console.log(slot);
                         const isBooked = bookedClasses.some(
                           (b) =>
                             b.building === building &&
@@ -218,7 +227,7 @@ export default function RoomFinder() {
                         );
 
                         return (
-                          <tr key={`${dIdx}-${pIdx}`}>
+                          <tr key={`${dateIdx}-${dIdx}-${pIdx}`}>
                             <td className="border p-2">
                               {format(currentDate, "EEEE, MMM d")}
                             </td>
@@ -254,18 +263,13 @@ export default function RoomFinder() {
                             </td>
                           </tr>
                         );
-                      }),
-                    )}
+                      });
+                    })}
                   </tbody>
                 </table>
               </div>
             )),
-          )
-        ) : (
-          <p className="text-gray-500">
-            No data available or filters not selected.
-          </p>
-        )}
+          )}
       </div>
     </section>
   );

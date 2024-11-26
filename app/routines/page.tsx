@@ -33,13 +33,11 @@ export default function Routines() {
   useEffect(() => {
     if (!routines) return;
     setPrograms(uniq(routines.map((routine) => routine.program)).sort());
-  }, [routines]);
+  }, [routines, setRoutines]);
 
   useEffect(() => {
     setIntake(null);
     setIntakes(null);
-    setSection(null);
-    setSections(null);
     if (!routines) return;
     setIntakes(
       uniq(
@@ -48,12 +46,12 @@ export default function Routines() {
           .map((routine) => routine.intake),
       ).sort((a, b) => a - b),
     );
-  }, [program]);
+  }, [program, setProgram]);
 
   useEffect(() => {
     setSection(null);
     setSections(null);
-    if (!routines) return;
+    if (!routines || !program) return;
     setSections(
       uniq(
         routines
@@ -64,7 +62,7 @@ export default function Routines() {
           .map((routine) => routine.section),
       ).sort(),
     );
-  }, [intake]);
+  }, [intake, setIntake]);
 
   useEffect(() => {
     if (!routines) return;
@@ -80,7 +78,7 @@ export default function Routines() {
           (section === null || routine.section === section),
       ),
     );
-  }, [routines, program, intake, section]);
+  }, [routines, program, intake, section, setProgram, setIntake, setSection]);
 
   return (
     <section className="min-h-full min-w-full flex flex-col gap-2 p-2">

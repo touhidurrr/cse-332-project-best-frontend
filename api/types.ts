@@ -41,3 +41,13 @@ export interface CourseInfo {
     name: string;
   }[];
 }
+
+export interface RoutineClass {
+  dIdx: number; // day index, [0 = Saturday, 1 = Sunday, ...]
+  pIdx: number; // period index
+  cls: Class;
+}
+
+export type BuildingRoomsMap = {
+  [building: string]: string[];
+};

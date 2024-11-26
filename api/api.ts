@@ -1,12 +1,18 @@
 "use client";
 import { Axios } from "axios";
-import { CourseInfo, FacultyInfo, Routine } from "./types";
+import {
+  BuildingRoomsMap,
+  CourseInfo,
+  FacultyInfo,
+  Routine,
+  RoutineClass
+} from "./types";
 
 let hostname = "localhost";
 if (typeof window !== "undefined") {
   hostname = window.location.hostname;
 } else if (typeof process !== "undefined") {
-  if (process.env?.BACKEND_URL) {
+  if (typeof process.env?.BACKEND_URL === "string") {
     hostname = process.env.BACKEND_URL;
   }
 }
@@ -42,3 +48,18 @@ export const getCourseCodes = async (): Promise<string[]> =>
   api.get("/courseCodes").then((res) => ifStringThenObject(res.data));
 export const getCourseInfo = async (courseCode: string): Promise<CourseInfo> =>
   api.get(`/courses/${courseCode}`).then((res) => ifStringThenObject(res.data));
+
+export const getBuildings = async (): Promise<string[]> =>
+  api.get("/buildings").then((res) => ifStringThenObject(res.data));
+export const getRooms = async (building: string): Promise<string[]> =>
+  api.get(`/buildings/${building}`).then((res) => ifStringThenObject(res.data));
+export const getBuildingRoomsMap = async (): Promise<BuildingRoomsMap> =>
+  api.get("/buildingRoomsMap").then((res) => ifStringThenObject(res.data));
+
+export const getClasses = (
+  building?: string | null,
+  room?: string | null,
+): Promise<RoutineClass[]> =>
+  api
+    .get("/classes", { params: { building, room } })
+    .then((res) => ifStringThenObject(res.data));

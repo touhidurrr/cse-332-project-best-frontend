@@ -2,13 +2,12 @@
 
 import {
   Card,
-  CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card";
-import { features } from "./features";
 import Link from "next/link";
+import { features } from "./features";
 
 export default function Home() {
   return (

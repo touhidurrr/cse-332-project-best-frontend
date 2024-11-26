@@ -1,6 +1,7 @@
 "use client";
 import { getBuildingRoomsMap, getClasses } from "@/api/api";
 import { BuildingRoomsMap, RoutineClass } from "@/api/types";
+import LinkedHoverCard from "@/components/linked-hover-card";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
@@ -21,7 +22,6 @@ import { cn } from "@/lib/utils";
 import { addDays } from "date-fns/addDays";
 import { format } from "date-fns/format";
 import { CalendarIcon } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { DateRange } from "react-day-picker";
 
@@ -248,14 +248,16 @@ export default function RoomFinder() {
                             <td className="border p-2">
                               {slot ? (
                                 <span>
-                                  Occupied by
-                                  <Link
-                                    className="text-gray-700"
-                                    href={`/froutine?code=${slot.cls.faculty.code}`}
+                                  Occupied by{" "}
+                                  <LinkedHoverCard
+                                    link={`/froutine?code=${slot.cls.faculty.code}`}
+                                    title={slot.cls.faculty.code}
+                                    description={slot.cls.faculty.name}
                                   >
-                                    {" "}
-                                    {slot.cls.faculty.code}
-                                  </Link>
+                                    <span className="text-gray-700">
+                                      {slot.cls.faculty.code}
+                                    </span>
+                                  </LinkedHoverCard>
                                 </span>
                               ) : isBooked ? (
                                 "Booked"

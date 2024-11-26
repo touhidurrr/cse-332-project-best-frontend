@@ -14,20 +14,20 @@ const days = [
 ];
 
 const StudentRoutine: React.FC<{ routine: Routine }> = ({ routine }) => {
-  let dayIdxs: number[] = [];
-  let periodIdxs: number[] = [];
+  let dayIndexes: number[] = [];
+  let periodIndexes: number[] = [];
 
   for (let d = 0; d < 7; d++) {
     for (let p = 0; p < routine.periods.length; p++) {
       if (routine.classes[d][p] !== null) {
-        dayIdxs.push(d);
-        periodIdxs.push(p);
+        dayIndexes.push(d);
+        periodIndexes.push(p);
       }
     }
   }
 
-  dayIdxs = uniq(dayIdxs).sort((a, b) => a - b);
-  periodIdxs = uniq(periodIdxs).sort((a, b) => a - b);
+  dayIndexes = uniq(dayIndexes).sort((a, b) => a - b);
+  periodIndexes = uniq(periodIndexes).sort((a, b) => a - b);
 
   return (
     <div className="shadow-lg rounded-lg overflow-hidden border border-gray-200 bg-white">
@@ -47,7 +47,7 @@ const StudentRoutine: React.FC<{ routine: Routine }> = ({ routine }) => {
               <th className="border-b border-gray-300 px-6 py-3 text-lg">
                 Day
               </th>
-              {periodIdxs.map((pIdx) => (
+              {periodIndexes.map((pIdx) => (
                 <th
                   key={pIdx}
                   className="border-b border-gray-300 px-6 py-3 text-sm text-center"
@@ -58,14 +58,14 @@ const StudentRoutine: React.FC<{ routine: Routine }> = ({ routine }) => {
             </tr>
           </thead>
           <tbody className="text-xs text-gray-700">
-            {dayIdxs.map((dIdx) => (
+            {dayIndexes.map((dIdx) => (
               <tr key={dIdx} className="even:bg-gray-50 hover:bg-gray-100">
                 {/* Day Column */}
                 <td className="border-b border-gray-300 px-6 py-4 font-medium">
                   {days[dIdx]}
                 </td>
                 {/* Period Columns */}
-                {periodIdxs.map((pIdx) => {
+                {periodIndexes.map((pIdx) => {
                   const pClass = routine.classes[dIdx][pIdx];
                   return (
                     <td

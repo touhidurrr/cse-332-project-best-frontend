@@ -33,7 +33,7 @@ function periodToDate(period: string): Date {
 const FacultyRoutine: React.FC<{ facultyInfo: FacultyInfo }> = ({
   facultyInfo,
 }) => {
-  const dayIdxs: number[] = [];
+  const dayIndexes: number[] = [];
 
   const periods: string[] = uniq(
     facultyInfo.classes.map((cls) => cls.period),
@@ -44,7 +44,7 @@ const FacultyRoutine: React.FC<{ facultyInfo: FacultyInfo }> = ({
     .map(() => new Array(periods.length).fill(null));
 
   facultyInfo.classes.forEach((cls) => {
-    dayIdxs.push(cls.dayIdx);
+    dayIndexes.push(cls.dayIdx);
     const periodIdx = periods.indexOf(cls.period);
     classes[cls.dayIdx][periodIdx] = cls;
   });
@@ -77,7 +77,7 @@ const FacultyRoutine: React.FC<{ facultyInfo: FacultyInfo }> = ({
             </tr>
           </thead>
           <tbody className="text-xs text-gray-700">
-            {uniq(dayIdxs)
+            {uniq(dayIndexes)
               .sort((a, b) => a - b)
               .map((dayIdx) => (
                 <tr key={dayIdx} className="even:bg-gray-50 hover:bg-gray-100">

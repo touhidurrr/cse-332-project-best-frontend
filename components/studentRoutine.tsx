@@ -1,7 +1,7 @@
 import { Routine } from "@/api/types";
 import uniq from "lodash.uniq";
-import Link from "next/link";
 import React from "react";
+import LinkedHoverCard from "./linked-hover-card";
 
 const days = [
   "Saturday",
@@ -74,23 +74,30 @@ const StudentRoutine: React.FC<{ routine: Routine }> = ({ routine }) => {
                     >
                       {pClass ? (
                         <div className="space-y-1">
-                          <div className="text-blue-600 font-semibold">
-                            <Link href={`/courses?code=${pClass.course.code}`}>
+                          <LinkedHoverCard
+                            link={`/courses?code=${pClass.course.code}`}
+                            title={pClass.course.code}
+                            description={pClass.course.name}
+                          >
+                            <div className="text-blue-600 font-semibold">
                               {pClass.course.code}
-                            </Link>
-                          </div>
+                            </div>
+                          </LinkedHoverCard>
+
                           <div className="text-gray-600">
                             B{pClass.building}/{pClass.room}
                           </div>
                           <div className="text-gray-500">
                             FC:{" "}
-                            <Link
-                              href={`/froutine?code=${pClass.faculty.code}`}
+                            <LinkedHoverCard
+                              link={`/froutine?code=${pClass.faculty.code}`}
+                              title={pClass.faculty.code}
+                              description={pClass.faculty.name}
                             >
                               <span className="text-gray-800">
                                 {pClass.faculty.code}
                               </span>
-                            </Link>
+                            </LinkedHoverCard>
                           </div>
                         </div>
                       ) : (

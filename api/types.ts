@@ -8,9 +8,14 @@ export interface Faculty {
   name: string;
 }
 
+export interface CourseFaculty {
+  faculty: Faculty;
+  count: number;
+}
+
 export interface CourseInfo {
   course: Course;
-  faculties: Faculty[];
+  courseFaculties: CourseFaculty[];
 }
 
 export interface Class {

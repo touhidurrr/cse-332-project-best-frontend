@@ -1,7 +1,7 @@
 import { FacultyClass, FacultyInfo } from "@/api/types";
 import uniq from "lodash.uniq";
-import Link from "next/link";
 import React from "react";
+import LinkedHoverCard from "./linked-hover-card";
 
 const days = [
   "Saturday",
@@ -93,11 +93,16 @@ const FacultyRoutine: React.FC<{ facultyInfo: FacultyInfo }> = ({
                     >
                       {cls ? (
                         <div className="space-y-1">
-                          <div className="text-blue-600 font-semibold">
-                            <Link href={`/courses?code=${cls.course.code}`}>
+                          <LinkedHoverCard
+                            link={`/courses?code=${cls.course.code}`}
+                            title={cls.course.code}
+                            description={cls.course.name}
+                          >
+                            <div className="text-blue-600 font-semibold">
                               {cls.course.code}
-                            </Link>
-                          </div>
+                            </div>
+                          </LinkedHoverCard>
+
                           <div className="text-gray-600">
                             B{cls.building}/{cls.room}
                           </div>

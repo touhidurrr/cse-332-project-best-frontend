@@ -4,7 +4,7 @@ import {
   Card,
   CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
 import { features } from "./features";

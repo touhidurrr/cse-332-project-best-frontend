@@ -1,6 +1,7 @@
 "use client";
 import { getCourseCodes, getCourseInfo } from "@/api/api";
 import { CourseInfo } from "@/api/types";
+import LinkedHoverCard from "@/components/linked-hover-card";
 import {
   Card,
   CardContent,
@@ -17,7 +18,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -71,17 +71,20 @@ export default function Courses() {
               Faculties:
             </h3>
             <ul className="list-disc list-inside mt-2 space-y-2">
-              {courseInfo.faculties.map(({ code, name }, idx) => (
-                <li key={idx} className="text-gray-700">
-                  <span className="font-semibold">{name} </span>
-                  <Link
-                    href={`/froutine?code=${code}`}
-                    className="text-gray-600"
-                  >
-                    ({code})
-                  </Link>
-                </li>
-              ))}
+              {courseInfo.courseFaculties
+                .sort((a, b) => b.count - a.count)
+                .map(({ faculty, count }, idx) => (
+                  <li key={idx} className="text-gray-700">
+                    <LinkedHoverCard
+                      link={`/froutine?code=${faculty.code}`}
+                      title={faculty.code}
+                      description={faculty.name}
+                    >
+                      <span className="font-semibold">{faculty.name} </span>
+                    </LinkedHoverCard>
+                    (Classes: {count})
+                  </li>
+                ))}
             </ul>
           </CardContent>
         </Card>

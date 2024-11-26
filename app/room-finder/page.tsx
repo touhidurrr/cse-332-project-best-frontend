@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import { addDays } from "date-fns/addDays";
 import { format } from "date-fns/format";
 import { CalendarIcon } from "lucide-react";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { DateRange } from "react-day-picker";
 
@@ -105,9 +106,16 @@ export default function RoomFinder() {
 
     if (rClasses)
       rClasses.forEach((rCls) => {
-        newBuildingRoomRoutinesMap[rCls.cls.building][rCls.cls.room][rCls.dIdx][
-          rCls.pIdx
-        ] = rCls;
+        if (newBuildingRoomRoutinesMap[rCls.cls.building])
+          if (newBuildingRoomRoutinesMap[rCls.cls.building][rCls.cls.room])
+            if (
+              newBuildingRoomRoutinesMap[rCls.cls.building][rCls.cls.room][
+                rCls.dIdx
+              ]
+            )
+              newBuildingRoomRoutinesMap[rCls.cls.building][rCls.cls.room][
+                rCls.dIdx
+              ][rCls.pIdx] = rCls;
       });
 
     setBuildingRoomRoutinesMap(newBuildingRoomRoutinesMap);
@@ -217,7 +225,6 @@ export default function RoomFinder() {
                     {getDays().map((currentDate, dateIdx) => {
                       const dIdx = (currentDate.getDay() + 6) % 7;
                       return routine[dIdx].map((slot, pIdx) => {
-                        console.log(slot);
                         const isBooked = bookedClasses.some(
                           (b) =>
                             b.building === building &&
@@ -235,11 +242,22 @@ export default function RoomFinder() {
                               pIdx + 1
                             }`}</td>
                             <td className="border p-2">
-                              {slot
-                                ? `Occupied (${slot.cls.facultyCode})`
-                                : isBooked
-                                  ? "Booked"
-                                  : "Unoccupied"}
+                              {slot ? (
+                                <span>
+                                  Occupied by
+                                  <Link
+                                    className="text-gray-700"
+                                    href={`/froutine?code=${slot.cls.facultyCode}`}
+                                  >
+                                    {" "}
+                                    {slot.cls.facultyCode}
+                                  </Link>
+                                </span>
+                              ) : isBooked ? (
+                                "Booked"
+                              ) : (
+                                "Unoccupied"
+                              )}
                             </td>
                             <td className="border p-2">
                               {!slot && !isBooked && (

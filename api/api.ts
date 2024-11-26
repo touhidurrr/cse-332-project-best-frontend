@@ -61,5 +61,5 @@ export const getClasses = (
   room?: string | null,
 ): Promise<RoutineClass[]> =>
   api
-    .get("/classes", { params: { building, room } })
+    .get("/routineClasses", { params: { building, room } })
     .then((res) => ifStringThenObject(res.data));

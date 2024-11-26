@@ -3,7 +3,7 @@
 export default function Retake() {
   return (
     <iframe
-      className="min-h-full min-w-full self-stretch"
+      className="h-full w-full"
       src="https://retake-section-finder.pages.dev/"
     />
   );

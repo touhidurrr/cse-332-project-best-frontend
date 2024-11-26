@@ -74,7 +74,11 @@ export default function RoomFinder() {
     if (bookedClassesJSON === null) {
       localStorage.setItem("bookedClasses", JSON.stringify([]));
     } else {
-      setBookedClasses(JSON.parse(bookedClassesJSON));
+      setBookedClasses(
+        (JSON.parse(bookedClassesJSON) as BookedClass[]).map(
+          ({ day, ...rest }) => ({ day: new Date(day), ...rest })
+        )
+      );
     }
   }, []);
 
@@ -225,19 +229,13 @@ export default function RoomFinder() {
                     {getDays().map((currentDate, dateIdx) => {
                       const dIdx = (currentDate.getDay() + 6) % 7;
                       return routine[dIdx].map((slot, pIdx) => {
-                        const isBooked = bookedClasses.some((b) => {
-                          try {
-                            return (
-                              b.building === building &&
-                              b.room === room &&
-                              b.day.getTime() === currentDate.getTime() &&
-                              b.pIdx === pIdx
-                            );
-                          } catch (e) {
-                            console.error(slot, b, e);
-                            return false;
-                          }
-                        });
+                        const isBooked = bookedClasses.some(
+                          (b) =>
+                            b.building === building &&
+                            b.room === room &&
+                            b.day.getTime() === currentDate.getTime() &&
+                            b.pIdx === pIdx
+                        );
 
                         return (
                           <tr key={`${dateIdx}-${dIdx}-${pIdx}`}>

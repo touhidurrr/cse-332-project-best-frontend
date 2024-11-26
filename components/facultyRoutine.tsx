@@ -54,7 +54,7 @@ const FacultyRoutine: React.FC<{ facultyInfo: FacultyInfo }> = ({
       {/* Routine Header */}
       <div className="bg-blue-600 text-white p-6">
         <h2 className="text-2xl font-bold">
-          {facultyInfo.code}: {facultyInfo.name}
+          {facultyInfo.faculty.code}: {facultyInfo.faculty.name}
         </h2>
       </div>
 
@@ -94,8 +94,8 @@ const FacultyRoutine: React.FC<{ facultyInfo: FacultyInfo }> = ({
                       {cls ? (
                         <div className="space-y-1">
                           <div className="text-blue-600 font-semibold">
-                            <Link href={`/courses?code=${cls.courseCode}`}>
-                              {cls.courseCode}
+                            <Link href={`/courses?code=${cls.course.code}`}>
+                              {cls.course.code}
                             </Link>
                           </div>
                           <div className="text-gray-600">

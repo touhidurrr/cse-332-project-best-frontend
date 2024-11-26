@@ -63,15 +63,15 @@ export default function Courses() {
       {courseInfo && (
         <Card>
           <CardHeader>
-            <CardTitle>{courseInfo.code}</CardTitle>
-            <CardDescription>{courseInfo.name}</CardDescription>
+            <CardTitle>{courseInfo.course.code}</CardTitle>
+            <CardDescription>{courseInfo.course.name}</CardDescription>
           </CardHeader>
           <CardContent>
             <h3 className="text-lg font-medium text-gray-600 mt-4">
               Faculties:
             </h3>
             <ul className="list-disc list-inside mt-2 space-y-2">
-              {courseInfo.courseFaculties.map(({ code, name }, idx) => (
+              {courseInfo.faculties.map(({ code, name }, idx) => (
                 <li key={idx} className="text-gray-700">
                   <span className="font-semibold">{name} </span>
                   <Link

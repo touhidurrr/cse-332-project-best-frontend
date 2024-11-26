@@ -251,10 +251,10 @@ export default function RoomFinder() {
                                   Occupied by
                                   <Link
                                     className="text-gray-700"
-                                    href={`/froutine?code=${slot.cls.facultyCode}`}
+                                    href={`/froutine?code=${slot.cls.faculty.code}`}
                                   >
                                     {" "}
-                                    {slot.cls.facultyCode}
+                                    {slot.cls.faculty.code}
                                   </Link>
                                 </span>
                               ) : isBooked ? (

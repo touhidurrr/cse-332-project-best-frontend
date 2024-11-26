@@ -12,18 +12,18 @@ let hostname = "localhost";
 if (typeof window !== "undefined") {
   hostname = window.location.hostname;
 } else if (typeof process !== "undefined") {
-  if (typeof process.env?.BACKEND_URL === "string") {
+  if (process.env?.BACKEND_URL) {
     hostname = process.env.BACKEND_URL;
   }
 }
 
 // cse332-backend.touhidur.pro
 const api = new Axios({
-  baseURL: hostname.endsWith("touhidur.pro")
-    ? "https://cse332-backend.touhidur.pro"
-    : hostname.endsWith("xn--45be4a8a4an7e.xn--54b7fta0cc")
-      ? "https://xn--w5b8awcb.xn--45be4a8a4an7e.xn--54b7fta0cc"
-      : "http://localhost:8080",
+  baseURL: hostname.endsWith("localhost")
+    ? "http://localhost:8080"
+    : hostname.endsWith("touhidur.pro")
+      ? "https://cse332-backend.touhidur.pro"
+      : "https://জাভা.তৌহিদুর.বাংলা",
 });
 
 function ifStringThenObject<T>(data: string | T): T {

@@ -75,8 +75,8 @@ const StudentRoutine: React.FC<{ routine: Routine }> = ({ routine }) => {
                       {pClass ? (
                         <div className="space-y-1">
                           <div className="text-blue-600 font-semibold">
-                            <Link href={`/courses?code=${pClass.courseCode}`}>
-                              {pClass.courseCode}
+                            <Link href={`/courses?code=${pClass.course.code}`}>
+                              {pClass.course.code}
                             </Link>
                           </div>
                           <div className="text-gray-600">
@@ -84,9 +84,11 @@ const StudentRoutine: React.FC<{ routine: Routine }> = ({ routine }) => {
                           </div>
                           <div className="text-gray-500">
                             FC:{" "}
-                            <Link href={`/froutine?code=${pClass.facultyCode}`}>
+                            <Link
+                              href={`/froutine?code=${pClass.faculty.code}`}
+                            >
                               <span className="text-gray-800">
-                                {pClass.facultyCode}
+                                {pClass.faculty.code}
                               </span>
                             </Link>
                           </div>

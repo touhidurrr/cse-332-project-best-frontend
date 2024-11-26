@@ -1,21 +1,28 @@
+export interface Course {
+  code: string;
+  name: string;
+}
+
+export interface Faculty {
+  code: string;
+  name: string;
+}
+
+export interface CourseInfo {
+  course: Course;
+  faculties: Faculty[];
+}
+
 export interface Class {
-  courseCode: string;
-  facultyCode: string;
+  course: Course;
+  faculty: Faculty;
   building: string;
   room: string;
 }
 
-export interface Routine {
-  program: string;
-  intake: number;
-  section: string;
-  semester: string;
-  periods: string[];
-  classes: (Class | null)[][];
-}
-
 export interface FacultyClass {
-  courseCode: string;
+  course: Course;
+
   building: string;
   room: string;
 
@@ -29,17 +36,17 @@ export interface FacultyClass {
 }
 
 export interface FacultyInfo {
-  code: string;
-  name: string;
+  faculty: Faculty;
   classes: FacultyClass[];
 }
-export interface CourseInfo {
-  code: string;
-  name: string;
-  courseFaculties: {
-    code: string;
-    name: string;
-  }[];
+
+export interface Routine {
+  program: string;
+  intake: number;
+  section: string;
+  semester: string;
+  periods: string[];
+  classes: (Class | null)[][];
 }
 
 export interface RoutineClass {

@@ -76,8 +76,8 @@ export default function RoomFinder() {
     } else {
       setBookedClasses(
         (JSON.parse(bookedClassesJSON) as BookedClass[]).map(
-          ({ day, ...rest }) => ({ day: new Date(day), ...rest })
-        )
+          ({ day, ...rest }) => ({ day: new Date(day), ...rest }),
+        ),
       );
     }
   }, []);
@@ -103,9 +103,9 @@ export default function RoomFinder() {
             newBuildingRoomRoutinesMap[building][room] = Array(7)
               .fill(null)
               .map(() => Array(8).fill(null));
-          }
+          },
         );
-      }
+      },
     );
 
     if (rClasses)
@@ -136,7 +136,7 @@ export default function RoomFinder() {
                 variant={"outline"}
                 className={cn(
                   "w-[300px] justify-start text-left font-normal",
-                  !date && "text-muted-foreground"
+                  !date && "text-muted-foreground",
                 )}
               >
                 <CalendarIcon />
@@ -234,7 +234,7 @@ export default function RoomFinder() {
                             b.building === building &&
                             b.room === room &&
                             b.day.getTime() === currentDate.getTime() &&
-                            b.pIdx === pIdx
+                            b.pIdx === pIdx,
                         );
 
                         return (
@@ -290,7 +290,7 @@ export default function RoomFinder() {
                   </tbody>
                 </table>
               </div>
-            ))
+            )),
           )}
       </div>
     </section>

@@ -36,7 +36,9 @@ export default function Routines() {
   }, [routines]);
 
   useEffect(() => {
+    setIntake(null);
     setIntakes(null);
+    setSection(null);
     setSections(null);
     if (!routines) return;
     setIntakes(
@@ -49,6 +51,7 @@ export default function Routines() {
   }, [program]);
 
   useEffect(() => {
+    setSection(null);
     setSections(null);
     if (!routines) return;
     setSections(
@@ -90,7 +93,7 @@ export default function Routines() {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Program</SelectLabel>
-                {programs?.map((program, index) => (
+                {programs.map((program, index) => (
                   <SelectItem key={index} value={program}>
                     {program}
                   </SelectItem>
@@ -108,7 +111,7 @@ export default function Routines() {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Intake</SelectLabel>
-                {intakes?.map((intake, index) => (
+                {intakes.map((intake, index) => (
                   <SelectItem key={index} value={intake.toString()}>
                     {intake}
                   </SelectItem>
@@ -126,7 +129,7 @@ export default function Routines() {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Section</SelectLabel>
-                {sections?.map((section, index) => (
+                {sections.map((section, index) => (
                   <SelectItem key={index} value={section}>
                     {section}
                   </SelectItem>

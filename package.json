@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "bun install && next build",
     "start": "next start",
     "lint": "next lint",
@@ -17,28 +17,32 @@
     "@radix-ui/react-separator": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.4",
-    "axios": "^1.7.7",
-    "class-variance-authority": "^0.7.0",
+    "axios": "^1.7.9",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "lodash.uniq": "^4.5.0",
     "lucide-react": "^0.460.0",
-    "next": "14.2.16",
-    "react": "^18.3.1",
+    "next": "^15.1.0",
+    "react": "^19.0.0",
     "react-day-picker": "8.10.1",
-    "react-dom": "^18.3.1",
+    "react-dom": "^19.0.0",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@types/lodash.uniq": "^4.5.9",
-    "@types/node": "^20.17.7",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/node": "^22.10.1",
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.2",
     "eslint": "^8.57.1",
-    "eslint-config-next": "14.2.16",
+    "eslint-config-next": "^15.1.0",
     "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.15",
+    "tailwindcss": "^3.4.16",
     "typescript": "^5.7.2"
+  },
+  "overrides": {
+    "@types/react": "^19.0.1",
+    "@types/react-dom": "^19.0.2"
   }
 }

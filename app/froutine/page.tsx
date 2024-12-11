@@ -25,7 +25,7 @@ export default function Routines() {
     getFacultyCodes()
       .then((codes) => setFacultyCodes(codes.sort()))
       .catch(console.error);
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     if (!facultyCode) return;

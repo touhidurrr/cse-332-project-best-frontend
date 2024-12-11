@@ -32,7 +32,7 @@ export default function Courses() {
     getCourseCodes()
       .then((codes) => setCourseCodes(codes.sort()))
       .catch(console.error);
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     if (!courseCode) return;
